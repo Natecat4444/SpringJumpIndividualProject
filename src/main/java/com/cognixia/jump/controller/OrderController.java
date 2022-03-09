@@ -24,6 +24,8 @@ import com.cognixia.jump.repository.UserRepository;
 import com.cognixia.jump.repository.User_OrderRepository;
 import com.cognixia.jump.util.JwtUtil;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 @RequestMapping("/api")
 @RestController
 public class OrderController {
@@ -42,6 +44,7 @@ public class OrderController {
 	@Autowired
 	JwtUtil jwt;
 	
+	@Operation(summary = "Get the user's order history", description = "Gets the user from the token and runs a query to find that user's orders")
 	@GetMapping("/orders")
 	public ResponseEntity<?> getAllOrders(HttpServletRequest req){
 		String token = req.getHeader("Authorization").split(" ")[1];
@@ -54,6 +57,7 @@ public class OrderController {
 		return ResponseEntity.status(403).body("No valid user");
 	}
 	
+	@Operation(summary = "Creates a brand new order")
 	@PostMapping("/orders/create/{mon_id}/{quantity}")
 	public ResponseEntity<?> createOrder(@PathVariable Integer mon_id, @PathVariable int quantity, HttpServletRequest req) throws Exception{
 		String token = req.getHeader("Authorization").split(" ")[1];
@@ -70,6 +74,7 @@ public class OrderController {
 		return ResponseEntity.status(201).body(saved);
 	}
 	
+	@Operation(summary = "If an order contains more than one type of monitor, all additional types will be added here")
 	@PostMapping("/orders/add/{mon_id}/{quantity}/{ordernum}")
 	public ResponseEntity<?> createOrder(@PathVariable Integer mon_id, @PathVariable int quantity, @PathVariable int ordernum,HttpServletRequest req)throws Exception{
 		String token = req.getHeader("Authorization").split(" ")[1];
@@ -86,6 +91,7 @@ public class OrderController {
 		return ResponseEntity.status(201).body(saved);
 	}
 	
+	@Operation(summary = "An admin only endpoint for updating where the order is in status, by default all orders are recieved")
 	@PatchMapping("/orders/{status}")
 	public ResponseEntity<?> updateStatus(HttpServletRequest req, @PathVariable Integer ordernum, @PathVariable User_Order.Status status)throws Exception{
 		String token = req.getHeader("Authorization").split(" ")[1];
