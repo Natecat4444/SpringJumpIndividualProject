@@ -21,41 +21,41 @@ public class MonitorControllerTest {
 	
 	@Test
 	void testCreateMonitor() {
-		
+		//TODO
 	}
 	
 	@Test
 	void testGetMonitors() {
-		
+		//TODO
 	}
 	
 	@Test
 	void testGetMonitor() {
-		
+		//TODO
 	}
 	
 	@Test
 	void testGetMonitorByBrand() {
-		
+		//TODO
 	}
 	
 	@Test
 	void testGetMonitorBySize() {
-		
+		//TODO
 	}
 	
 	@Test
 	void testGetMonitorBySizeGreaterThan() {
-		
+		//TODO
 	}
 	
 	@Test
 	void testGetMonitorBySizeAndBrand() {
-		
+		//TODO
 	}
 	
 	@Test
 	void testGetMonitorBySizeAndBrandGreaterThan() {
-		
+		//TODO
 	}
 }
