@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -61,7 +62,7 @@ public class OrderController {
 	
 	@Operation(summary = "Creates a brand new order")
 	@PostMapping("/orders/create/{mon_id}/{quantity}")
-	public ResponseEntity<?> createOrder(@PathVariable Integer mon_id, @PathVariable int quantity, HttpServletRequest req) throws Exception{
+	public ResponseEntity<?> createOrder(@PathVariable Integer mon_id, @Valid @PathVariable int quantity, HttpServletRequest req) throws Exception{
 		String token = req.getHeader("Authorization").split(" ")[1];
 		Optional<User> user = urepo.findByUsername(jwt.extractUsername(token));
 		if(user.isEmpty()) {
@@ -78,7 +79,7 @@ public class OrderController {
 	
 	@Operation(summary = "If an order contains more than one type of monitor, all additional types will be added here")
 	@PostMapping("/orders/add/{mon_id}/{quantity}/{ordernum}")
-	public ResponseEntity<?> createOrder(@PathVariable Integer mon_id, @PathVariable int quantity, @PathVariable int ordernum,HttpServletRequest req)throws Exception{
+	public ResponseEntity<?> createOrder(@PathVariable Integer mon_id, @Valid @PathVariable int quantity, @PathVariable int ordernum,HttpServletRequest req)throws Exception{
 		String token = req.getHeader("Authorization").split(" ")[1];
 		Optional<User> user = urepo.findByUsername(jwt.extractUsername(token));
 		if(user.isEmpty()) {

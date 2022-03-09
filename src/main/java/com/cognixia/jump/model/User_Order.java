@@ -12,6 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.validation.Valid;
+
+import org.hibernate.validator.constraints.Range;
 
 @Entity
 public class User_Order implements Serializable{
@@ -29,6 +32,7 @@ public class User_Order implements Serializable{
 	private Integer id;
 	
 	@Column(nullable = false)
+	@Range(min = 0)
 	private Integer quantity;
 	
 	@ManyToOne
