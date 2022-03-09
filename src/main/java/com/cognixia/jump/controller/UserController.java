@@ -17,6 +17,8 @@ import com.cognixia.jump.model.User;
 import com.cognixia.jump.repository.UserRepository;
 import com.cognixia.jump.service.CurrentUserService;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 @RequestMapping("/api")
 @RestController
 public class UserController {
@@ -28,16 +30,19 @@ public class UserController {
 	@Autowired
 	PasswordEncoder encoder;
 	
+	@Operation(summary = "admin only endpoint for retrieving users")
 	@GetMapping("/user")
 	public List<User> getUsers(){
 		return repo.findAll();
 	}
 	
+	@Operation(summary = "unused")
 	@GetMapping("/CurrentUser")
 	public ResponseEntity<?> getCurrentUser(){
 		return ResponseEntity.status(200).body(CurrentUserService.getUser()==null);
 	}
 	
+	@Operation(summary = "Open endpoint for creating users")
 	@PostMapping("/user")
 	public ResponseEntity<?> createUser(@RequestBody User user) {
 		user.setId(null);
