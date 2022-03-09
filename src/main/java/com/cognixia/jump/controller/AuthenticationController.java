@@ -18,6 +18,8 @@ import com.cognixia.jump.model.AuthenticationResponse;
 import com.cognixia.jump.service.CurrentUserService;
 import com.cognixia.jump.util.JwtUtil;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 @RequestMapping("/api")
 @RestController
 public class AuthenticationController {
@@ -30,6 +32,7 @@ public class AuthenticationController {
 	@Autowired
 	JwtUtil jwtUtil;
 	
+	@Operation(summary = "Creates a new jet token given a correct username and password")
 	@PostMapping("/login")
 	public ResponseEntity<?> createToken(@RequestBody AuthenticationRequest request) throws Exception{
 		try {
@@ -45,6 +48,7 @@ public class AuthenticationController {
 		return ResponseEntity.status(201).body(new AuthenticationResponse(jwt));
 	}
 	
+	@Operation(summary = "don't use")
 	@GetMapping("/logout")
 	public ResponseEntity<?> logout(){
 		CurrentUserService.setUser(null);
