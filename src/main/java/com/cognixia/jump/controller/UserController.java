@@ -18,9 +18,11 @@ import com.cognixia.jump.repository.UserRepository;
 import com.cognixia.jump.service.CurrentUserService;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RequestMapping("/api")
 @RestController
+@Tag(name = "User", description="Controller to manage users")
 public class UserController {
 	
 	@Autowired

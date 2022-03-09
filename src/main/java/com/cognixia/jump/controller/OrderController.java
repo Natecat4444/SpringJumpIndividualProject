@@ -25,9 +25,11 @@ import com.cognixia.jump.repository.User_OrderRepository;
 import com.cognixia.jump.util.JwtUtil;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RequestMapping("/api")
 @RestController
+@Tag(name = "Order", description="Controller to create and manage orders")
 public class OrderController {
 	@Autowired
 	User_OrderRepository repo;

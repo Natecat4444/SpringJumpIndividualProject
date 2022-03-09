@@ -16,9 +16,11 @@ import com.cognixia.jump.model.Monitor;
 import com.cognixia.jump.repository.MonitorRepository;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RequestMapping("/api")
 @RestController
+@Tag(name = "Monitor", description="Controller for managing monitors, primarily for retrieving data")
 public class MonitorController {
 
 	@Autowired

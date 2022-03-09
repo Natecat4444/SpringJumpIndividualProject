@@ -19,9 +19,11 @@ import com.cognixia.jump.service.CurrentUserService;
 import com.cognixia.jump.util.JwtUtil;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RequestMapping("/api")
 @RestController
+@Tag(name = "Authentication", description="Controller to let users log in")
 public class AuthenticationController {
 	@Autowired
 	AuthenticationManager authManager;
