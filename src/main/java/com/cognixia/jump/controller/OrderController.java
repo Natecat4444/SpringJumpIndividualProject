@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cognixia.jump.exception.InvalidUserException;
 import com.cognixia.jump.model.Monitor;
 import com.cognixia.jump.model.User;
 import com.cognixia.jump.model.User_Order;
@@ -54,11 +55,11 @@ public class OrderController {
 	}
 	
 	@PostMapping("/orders/create/{mon_id}/{quantity}")
-	public ResponseEntity<?> createOrder(@PathVariable Integer mon_id, @PathVariable int quantity, HttpServletRequest req){
+	public ResponseEntity<?> createOrder(@PathVariable Integer mon_id, @PathVariable int quantity, HttpServletRequest req) throws Exception{
 		String token = req.getHeader("Authorization").split(" ")[1];
 		Optional<User> user = urepo.findByUsername(jwt.extractUsername(token));
 		if(user.isEmpty()) {
-			return ResponseEntity.status(403).body("Invalid token");
+			throw new InvalidUserException("No valid user in token");
 		}
 		Optional<Monitor> monitor = mrepo.findById(mon_id);
 		if(monitor.isEmpty()) {
@@ -70,11 +71,11 @@ public class OrderController {
 	}
 	
 	@PostMapping("/orders/add/{mon_id}/{quantity}/{ordernum}")
-	public ResponseEntity<?> createOrder(@PathVariable Integer mon_id, @PathVariable int quantity, @PathVariable int ordernum,HttpServletRequest req){
+	public ResponseEntity<?> createOrder(@PathVariable Integer mon_id, @PathVariable int quantity, @PathVariable int ordernum,HttpServletRequest req)throws Exception{
 		String token = req.getHeader("Authorization").split(" ")[1];
 		Optional<User> user = urepo.findByUsername(jwt.extractUsername(token));
 		if(user.isEmpty()) {
-			return ResponseEntity.status(403).body("Invalid token");
+			throw new InvalidUserException("No valid user in token");
 		}
 		Optional<Monitor> monitor = mrepo.findById(mon_id);
 		if(monitor.isEmpty()) {
@@ -86,11 +87,11 @@ public class OrderController {
 	}
 	
 	@PatchMapping("/orders/{status}")
-	public ResponseEntity<?> updateStatus(HttpServletRequest req, @PathVariable Integer ordernum, @PathVariable User_Order.Status status){
+	public ResponseEntity<?> updateStatus(HttpServletRequest req, @PathVariable Integer ordernum, @PathVariable User_Order.Status status)throws Exception{
 		String token = req.getHeader("Authorization").split(" ")[1];
 		Optional<User> user = urepo.findByUsername(jwt.extractUsername(token));
 		if(user.isEmpty()) {
-			return ResponseEntity.status(403).body("Invalid token");
+			throw new InvalidUserException("No valid user in token");
 		}
 		List<User_Order> orders = repo.getOrdersByOrdernum(ordernum);
 		if(orders.size() == 0) {
