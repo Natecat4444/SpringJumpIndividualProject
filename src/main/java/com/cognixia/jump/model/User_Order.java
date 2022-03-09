@@ -20,8 +20,8 @@ public class User_Order implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private static enum Status{
-		Placed, Recieved, Shipped, Delivered;
+	public static enum Status{
+		Placed, Recieved, Shipped, Delivered, CANCELED
 	}
 	
 	@Id
@@ -40,21 +40,23 @@ public class User_Order implements Serializable{
 	private Monitor monitor;
 	
 	@Column(nullable = false)
+	@GeneratedValue(strategy = GenerationType.TABLE)
 	private Integer ordernum;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
 	private Status status;
 
-	public User_Order(int id, int quantity, User user, Monitor monitor, int ordernum, Status status) {
+	public User_Order(Integer id, Integer quantity, User user, Monitor monitor, Integer ordernum) {
 		super();
 		this.id = id;
 		this.quantity = quantity;
 		this.user = user;
 		this.monitor = monitor;
 		this.ordernum = ordernum;
-		this.status = status;
+		this.status = Status.Recieved;
 	}
+	
 
 	public int getId() {
 		return id;

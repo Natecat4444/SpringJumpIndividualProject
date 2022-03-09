@@ -54,6 +54,20 @@ public class MonitorController {
 	public List<Monitor> getMonitorsBySize(@PathVariable Double size){
 		return repo.getMonitorsBySize(size);
 	}
-//	@GetMapping("/monitor/size/gt/{size}")
-//	@GetMapping("/monitor/brand/gt/{brand}/{size}")
+	
+	@GetMapping("/monitor/size/gt/{size}")
+	public List<Monitor> getMonitorsBySizeGreaterThan(@PathVariable Double size){
+		return repo.getMonitorsBySizeGreaterThan(size);
+	}
+	
+	@GetMapping("/monitor/brand/{brand}/{size}")
+	public List<Monitor> getMonitorsBySizeAndBrand(@PathVariable String brand, @PathVariable Double size){
+		return repo.getMonitorsBySizeAndBrand(size, brand);
+		
+	}
+	
+	@GetMapping("/monitor/brand/gt/{brand}/{size}")
+	public List<Monitor> getMonitorsBysizeAndBrandGreaterThan(@PathVariable String brand, @PathVariable Double size){
+		return repo.getMonitorsByBrandAndSizeGreaterThan(size, brand);
+	}
 }

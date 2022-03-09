@@ -41,7 +41,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 			.antMatchers(HttpMethod.POST, "/api/login").permitAll()
 			.antMatchers(HttpMethod.GET, "/api/CurrentUser").authenticated()
 			.antMatchers(HttpMethod.POST, "/api/monitor").hasRole("ADMIN")
-			.antMatchers(HttpMethod.GET, "/order").authenticated()
+			.antMatchers(HttpMethod.GET, "/api/monitors").authenticated()
+			.antMatchers(HttpMethod.GET, "/api/monitor/{id}").authenticated()
+			.antMatchers(HttpMethod.GET, "/api/monitor/brand/{brand}").authenticated()
+			.antMatchers(HttpMethod.GET, "/monitor/size/{size}").authenticated()
+			.antMatchers(HttpMethod.GET, "/monitor/size/gt/{size}").authenticated()
+			.antMatchers(HttpMethod.GET, "/monitor/brand/gt/{brand}/{size}").authenticated()
+			.antMatchers(HttpMethod.GET, "/monitor/brand/{brand}/{size}").authenticated()
+			.antMatchers(HttpMethod.GET, "/api/order").authenticated()
+			.antMatchers(HttpMethod.POST, "/api/order/create/{mon_id}/{quantity}").authenticated()
+			.antMatchers(HttpMethod.POST, "/api/order/add/{mon_id}/{quantity}/{ordernum}").authenticated()
+			.antMatchers(HttpMethod.PATCH, "/orders/{status}").authenticated()
 			.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		
 		http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
