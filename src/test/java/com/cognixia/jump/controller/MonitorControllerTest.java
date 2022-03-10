@@ -21,6 +21,7 @@ public class MonitorControllerTest {
 	
 	@Test
 	void testCreateMonitor() {
+		String uri = STARTING_URI + "/api/monitor";
 		//TODO
 	}
 	
