@@ -71,10 +71,14 @@ public class UserControllerTest {
 	}
 	
 	@Test
+	@WithMockUser(username="test", roles= {"USER"})
 	void testCreateUser() throws Exception {
 		String uri = STARTING_URI +"/user";
 		
 		User user = new User(); 
+		
+		when( userRepository.save(user)).thenReturn(user);
+		
 		
 		mvc.perform(post(uri)
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
