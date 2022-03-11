@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
@@ -38,7 +39,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(UserController.class)
-public class UserControllerTest {
+public class UserControllerTest<S> {
 	private final String STARTING_URI = "http://localhost:8080/api";
 	
 	@Autowired
@@ -77,7 +78,9 @@ public class UserControllerTest {
 		
 		User user = new User(); 
 		
-		when( userRepository.save(user)).thenReturn(user);
+		user.setEnabled(true);
+		
+		when( userRepository.save(any(User.class))).thenReturn(user);
 		
 		
 		mvc.perform(post(uri)

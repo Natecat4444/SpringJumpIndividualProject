@@ -53,6 +53,8 @@ public class UserController {
 		
 		user.setEnabled(true);
 		
+		System.out.println(user);
+		
 		User newUser = repo.save(user);
 		
 		return ResponseEntity.status(201).body("User "+newUser.getUsername()+" created");
